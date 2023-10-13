@@ -1,7 +1,7 @@
+import api from '@/services/api'
 import { ref, computed, onMounted } from 'vue'
-import axios from 'axios'
 
-export function usePagination(apiUrl, itemName) {
+export function usePagination(endpoint, itemName) {
   const items = ref([])
   const pagination = ref(null)
   const paginationLoaded = ref(false)
@@ -16,7 +16,7 @@ export function usePagination(apiUrl, itemName) {
   })
 
   const getItems = (page) => {
-    axios.get(`${apiUrl}?page=${page}`).then((res) => {
+    api.get(`${endpoint}?page=${page}`).then((res) => {
       items.value = res.data[itemName]
       pagination.value = res.data.meta
       paginationLoaded.value = true
