@@ -1,5 +1,39 @@
+<script setup>
+import BaseLayout from '../../layouts/BaseLayout.vue'
+import DataTable from '@/components/DataTable.vue'
+import PaginationControl from '@/components/PaginationControl.vue'
+import { usePagination } from '../../composables/usePagination'
+
+const {
+  items,
+  pagination,
+  paginationLoaded,
+  totalPage,
+  changePage
+} = usePagination('/api/v1/loads', 'loads')
+
+const fields = { id: 'ID', code: 'Código', delivery_date: 'Data de Entrega' };
+
+</script>
+
 <template>
-  <div>
-    <h1>Loads page</h1>
-  </div>
+  <BaseLayout>
+    <template v-slot:title>
+      <h4>Cargas</h4>
+    </template>
+
+    <DataTable
+      :items="items"
+      :fields="fields"
+      :actions="true"
+    />
+
+    <PaginationControl
+      v-if="paginationLoaded"
+      :pagination="pagination"
+      :total-page="totalPage"
+      @page-changed="changePage"
+    ></PaginationControl>
+
+  </BaseLayout>
 </template>
