@@ -1,4 +1,10 @@
 <script setup>
+import { computed } from 'vue'
+
+const isTableMode = computed(() => {
+  return window.innerWidth >= 768
+})
+
 defineProps({
   items: {
     type: Array,
@@ -17,7 +23,8 @@ defineProps({
 </script>
 
 <template>
-  <table class="table table-bordered">
+<div>
+  <table class="table table-bordered d-none d-md-table" v-if="isTableMode">
     <thead>
       <tr>
         <th v-for="(label, field) in fields" :key="field">{{ label }}</th>
@@ -33,4 +40,17 @@ defineProps({
       </tr>
     </tbody>
   </table>
+  <div class="d-md-none" v-else>
+    <div v-for="(item, index) in items" :key="index" class="card mb-3 p-2">
+      <div v-for="(label, field) in fields" :key="field">
+        <b>{{label}}</b>:
+        <span>{{ item[field] }}</span>
+      </div>
+
+      <td v-if="actions" class="d-grid gap-2 mt-2">
+        <slot name="actions" :item="item"/>
+      </td>
+    </div>
+  </div>
+</div>
 </template>
