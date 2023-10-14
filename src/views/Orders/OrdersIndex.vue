@@ -50,7 +50,7 @@ const processSuccess = (id) => {
     <template v-slot:title>
       <h4>Listas da carga com ID {{ loadId }}
         <RouterLink
-          :to="`orders/create`"
+          :to="{ name: 'OrdersCreate', params: { load_id: loadId } }"
           class="btn btn-success float-end"
         >
             <span>Nova Lista</span>
