@@ -1,18 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import LoadsIndex from '../views/Loads/LoadsIndex.vue'
 import LoadsForm from '../views/Loads/LoadsForm.vue'
+import OrdersIndex from '../views/Orders/OrdersIndex.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/loads',
       name: 'loads',
       component: LoadsIndex
     },
@@ -25,6 +20,11 @@ const router = createRouter({
       path: '/loads/:id/edit',
       name: 'LoadsEdit',
       component: LoadsForm
+    },
+    {
+      path: '/loads/:id/orders',
+      name: 'LoadsEdit',
+      component: OrdersIndex
     }
   ]
 })
