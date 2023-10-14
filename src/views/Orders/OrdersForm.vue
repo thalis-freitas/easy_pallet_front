@@ -49,12 +49,15 @@ const processSuccess = res => {
 }
 
 const processError = error => {
-  if(error.response.status == 422) {
-    orderErrors.value = error.response.data.errors
-    showError(`Lista não ${action}, verifique os erros e tente novamente`)
-
-  } else if(error.response.status == 404) {
-    showForm.value = false
+  try {
+    if(error.response.status == 422) {
+      orderErrors.value = error.response.data.errors
+      showError(`Lista não ${action}, verifique os erros e tente novamente`)
+    } else if(error.response.status == 404) {
+      showForm.value = false
+    }
+  } catch {
+    showError(`Lista não ${action}, erro desconhecido`)
   }
 }
 
