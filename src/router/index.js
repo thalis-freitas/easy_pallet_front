@@ -20,6 +20,11 @@ const router = createRouter({
       path: '/loads/create',
       name: 'LoadsCreate',
       component: LoadsForm
+    },
+    {
+      path: '/loads/:id/edit',
+      name: 'LoadsEdit',
+      component: LoadsForm
     }
   ]
 })

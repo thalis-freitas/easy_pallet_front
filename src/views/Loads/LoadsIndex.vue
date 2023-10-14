@@ -31,6 +31,11 @@ const fields = { id: 'ID', code: 'Código', delivery_date: 'Data de Entrega' }
       :fields="fields"
       :actions="true"
     >
+      <template v-slot:actions="data">
+        <RouterLink :to="`loads/${data.item.id}/edit`" class="btn btn-primary me-md-2">
+          Editar
+        </RouterLink>
+      </template>
     </DataTable>
 
     <PaginationControl
