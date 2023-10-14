@@ -39,8 +39,8 @@ Este projeto possibilita gerenciar informações relacionadas a cargas, listas, 
 
 ### Usuários (users)
 - [x] Tabela e paginação com as informações
-- [ ] Botão de criação de um novo usuário
-- [ ] Botão que permita a edição dos atributos do usuário
+- [x] Botão de criação de um novo usuário
+- [x] Botão que permita a edição dos atributos do usuário
 - [ ] Botão de exclusão do usuário
 
 ## Passo a passo para rodar o projeto
