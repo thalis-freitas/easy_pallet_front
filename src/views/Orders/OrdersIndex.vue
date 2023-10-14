@@ -1,16 +1,21 @@
 <script setup>
+import api from '@/services/api'
 import BaseLayout from '../../layouts/BaseLayout.vue'
 import DataTable from '@/components/DataTable.vue'
 import PaginationControl from '@/components/PaginationControl.vue'
 import { ref } from 'vue'
+import { removeElement } from '../../composables/tableUtils'
+import {
+  showConfirmation,
+  showSuccessfullyRemoved,
+  showError
+} from '../../composables/useSweetAlert.js'
 import { usePagination } from '../../composables/usePagination'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
 const loadId = ref(route.params.load_id)
-
-import 'sweetalert2/src/sweetalert2.scss'
 
 const {
   items,
@@ -21,6 +26,22 @@ const {
 } = usePagination(`/api/v1/loads/${loadId.value}/orders`, 'orders')
 
 const fields = { id: 'ID', code: 'Código', bay: 'Baia'}
+
+const deleteOrder = (id) => {
+  showConfirmation(
+    `Deseja excluir a lista com ID ${id}? Esta ação é irreversível!`,
+    () => {
+      api.delete(`api/v1/orders/${id}`)
+        .then(() => processSuccess(id))
+        .catch(() => showError('Erro ao remover a lista, tente novamente'))
+    }
+  )
+}
+
+const processSuccess = (id) => {
+  showSuccessfullyRemoved('Lista removida com sucesso')
+  removeElement(items.value, id)
+}
 
 </script>
 
@@ -49,6 +70,12 @@ const fields = { id: 'ID', code: 'Código', bay: 'Baia'}
         >
           Editar
         </RouterLink>
+        <button
+          @click="deleteOrder(data.item.id)"
+          type="button"
+          class="btn btn-outline-secondary me-md-2">
+          Deletar
+        </button>
       </template>
     </DataTable>
 
