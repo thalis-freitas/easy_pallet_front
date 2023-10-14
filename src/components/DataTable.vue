@@ -1,9 +1,5 @@
 <script setup>
-import { computed } from 'vue'
-
-const isTableMode = computed(() => {
-  return window.innerWidth >= 768
-})
+import { isTableMode } from '../composables/tableUtils'
 
 defineProps({
   items: {
@@ -27,14 +23,18 @@ defineProps({
   <table class="table table-bordered d-none d-md-table" v-if="isTableMode">
     <thead>
       <tr>
-        <th v-for="(label, field) in fields" :key="field">{{ label }}</th>
+        <th v-for="(label, field) in fields" :key="field">
+          <strong>
+            {{ label }}
+          </strong>
+        </th>
         <th v-if="actions"></th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="(item, index) in items" :key="index">
         <td v-for="(label, field) in fields" :key="field">{{ item[field] }}</td>
-        <td v-if="actions" class="d-flex justify-content-evenly">
+        <td v-if="actions" class="d-flex justify-content-start">
           <slot name="actions" :item="item"/>
         </td>
       </tr>
@@ -43,7 +43,7 @@ defineProps({
   <div class="d-md-none" v-else>
     <div v-for="(item, index) in items" :key="index" class="card mb-3 p-2">
       <div v-for="(label, field) in fields" :key="field">
-        <b>{{label}}</b>:
+        <strong>{{ label }}</strong>:
         <span>{{ item[field] }}</span>
       </div>
 
