@@ -22,13 +22,17 @@ onMounted(() => {
   }
 })
 
+const showForm = ref(true)
+
 const getLoadData = id => {
-  api.get(`api/v1/loads/${id}`).then(res => {
-    load.value = { 
-      code: res.data.code,
-      delivery_date: res.data.delivery_date
-    }
-  })
+  api.get(`api/v1/loads/${id}`)
+    .then(res => {
+      load.value = { 
+        code: res.data.code,
+        delivery_date: res.data.delivery_date
+      }
+    })
+    .catch(error => { processError(error) })
 }
 
 const isNewLoad = ref(!id.value)
@@ -47,19 +51,22 @@ const processError = error => {
   if(error.response.status == 422) {
     loadErrors.value = error.response.data.errors
     showError(`Carga não ${action}, verifique os erros e tente novamente`)
+
+  } else if(error.response.status == 404) {
+    showForm.value = false
   }
 }
 
 const createLoad = () => {
   api.post('api/v1/loads', load.value)
-      .then(res => { processSuccess(res) })
-      .catch(error => { processError(error) })
+    .then(res => { processSuccess(res) })
+    .catch(error => { processError(error) })
 }
 
 const updateLoad = () => {
   api.put(`api/v1/loads/${id.value}`, load.value)
-      .then(res => processSuccess(res))
-      .catch(error => processError(error))
+    .then(res => processSuccess(res))
+    .catch(error => processError(error))
 }
 
 const saveLoad = () => isNewLoad.value ? createLoad() : updateLoad()
@@ -72,22 +79,28 @@ const saveLoad = () => isNewLoad.value ? createLoad() : updateLoad()
       <h4>{{ isNewLoad ? 'Nova Carga' : 'Editar Carga' }}</h4>
     </template>
 
-    <div class="mb-3">
-      <label for="code">Código</label>
-      <input type="text" v-model="load.code" class="form-control"/>
-      <p class="text-danger">{{ loadErrors.code }}</p>
+    <div v-if="showForm">
+      <div class="mb-3">
+        <label for="code">Código</label>
+        <input type="text" v-model="load.code" class="form-control"/>
+        <p class="text-danger">{{ loadErrors.code }}</p>
+      </div>
+
+      <div class="mb-3">
+        <label for="delivery_date">Data de entrega</label>
+        <input type="date" v-model="load.delivery_date" class="form-control"/>
+        <p class="text-danger">{{ loadErrors.delivery_date }}</p>
+      </div>
+
+      <div class="mb-3">
+        <button @click="saveLoad" type="button" class="btn btn-success">
+          {{ isNewLoad ? 'Salvar' : 'Atualizar' }}
+        </button>
+      </div>
     </div>
 
-    <div class="mb-3">
-      <label for="delivery_date">Data de entrega</label>
-      <input type="date" v-model="load.delivery_date" class="form-control"/>
-      <p class="text-danger">{{ loadErrors.delivery_date }}</p>
-    </div>
-
-    <div class="mb-3">
-      <button @click="saveLoad" type="button" class="btn btn-success">
-        {{ isNewLoad ? 'Salvar' : 'Atualizar' }}
-      </button>
+    <div v-else class="alert alert-danger text-center">
+      Nenhuma carga encontrada com o ID {{ id }}
     </div>
   </BaseLayout>
 </template>
