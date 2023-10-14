@@ -4,6 +4,7 @@ import LoadsForm from '../views/Loads/LoadsForm.vue'
 import OrdersIndex from '../views/Orders/OrdersIndex.vue'
 import OrdersForm from '../views/Orders/OrdersForm.vue'
 import OrderProductsIndex from '../views/OrderProducts/OrderProductsIndex.vue'
+import OrderProductsForm from '../views/OrderProducts/OrderProductsForm.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,6 +43,16 @@ const router = createRouter({
       path: '/orders/:order_id/order_products',
       name: 'OrderProductsIndex',
       component: OrderProductsIndex
+    },
+    {
+      path: '/orders/:order_id/order_products/create',
+      name: 'OrderProductsCreate',
+      component: OrderProductsForm
+    },
+    {
+      path: '/orders/:order_id/order_products/:id/edit',
+      name: 'OrderProductsEdit',
+      component: OrderProductsForm
     }
   ]
 })
