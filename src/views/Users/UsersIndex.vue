@@ -17,23 +17,23 @@ const {
   paginationLoaded,
   totalPage,
   changePage
-} = usePagination('/api/v1/products', 'products')
+} = usePagination('/api/v1/users', 'users')
 
-const fields = { id: 'ID', name: 'Nome', ballast: 'Lastro' }
+const fields = { id: 'ID', name: 'Nome', login: 'Login' }
 
-const deleteProduct = (id) => {
+const deleteUser = (id) => {
   showConfirmation(
-    `Deseja excluir o produto com ID ${id}? Esta ação é irreversível!`,
+    `Deseja excluir o usuário com ID ${id}? Esta ação é irreversível!`,
     () => {
-      api.delete(`api/v1/products/${id}`)
+      api.delete(`api/v1/users/${id}`)
         .then(() => processSuccess(id))
-        .catch(() => showError('Erro ao remover o produto, tente novamente'))
+        .catch(() => showError('Erro ao remover o usuário, tente novamente'))
     }
   )
 }
 
 const processSuccess = (id) => {
-  showSuccessfullyRemoved('Produto removido com sucesso')
+  showSuccessfullyRemoved('Usuário removido com sucesso')
   removeElement(items.value, id)
 }
 
@@ -42,9 +42,9 @@ const processSuccess = (id) => {
 <template>
   <BaseLayout>
     <template v-slot:title>
-      <h4>Produtos
-        <RouterLink to="products/create" class="btn btn-success float-end">
-            <span>Novo produto</span>
+      <h4>Usuários
+        <RouterLink to="users/create" class="btn btn-success float-end">
+            <span>Novo usuário</span>
         </RouterLink>
       </h4>
     </template>
@@ -56,13 +56,13 @@ const processSuccess = (id) => {
     >
       <template v-slot:actions="data">
         <RouterLink
-          :to="`products/${data.item.id}/edit`"
+          :to="`users/${data.item.id}/edit`"
           class="btn btn-primary me-md-2"
         >
           Editar
         </RouterLink>
         <button
-          @click="deleteProduct(data.item.id)"
+          @click="deleteUser(data.item.id)"
           type="button"
           class="btn btn-outline-secondary me-md-2">
           Deletar
