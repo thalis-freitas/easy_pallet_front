@@ -12,28 +12,33 @@ const {
   changePage
 } = usePagination('/api/v1/loads', 'loads')
 
-const fields = { id: 'ID', code: 'Código', delivery_date: 'Data de Entrega' };
+const fields = { id: 'ID', code: 'Código', delivery_date: 'Data de Entrega' }
 
 </script>
 
 <template>
   <BaseLayout>
     <template v-slot:title>
-      <h4>Cargas</h4>
+      <h4>Cargas
+        <RouterLink to="loads/create" class="btn btn-success float-end">
+            <span>Nova Carga</span>
+        </RouterLink>
+      </h4>
     </template>
 
     <DataTable
       :items="items"
       :fields="fields"
       :actions="true"
-    />
+    >
+    </DataTable>
 
     <PaginationControl
       v-if="paginationLoaded"
       :pagination="pagination"
       :total-page="totalPage"
       @page-changed="changePage"
-    ></PaginationControl>
+    />
 
   </BaseLayout>
 </template>
