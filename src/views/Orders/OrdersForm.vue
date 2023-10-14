@@ -33,7 +33,7 @@ const getOrderData = (id) => {
         bay: res.data.bay
       }
     })
-    .catch(error => { processError(error) })
+    .catch(() => { showError(`Erro ao buscar lista com ID ${id}`) })
 }
 
 const isNewOrder = ref(!id.value)
@@ -63,8 +63,8 @@ const processError = error => {
 
 const createOrder = () => {
   api.post(`api/v1/loads/${loadId.value}/orders`, order.value)
-    .then(res => { processSuccess(res) })
-    .catch(error => { processError(error) })
+    .then(res => processSuccess(res))
+    .catch(error => processError(error))
 }
 
 const updateOrder = () => {

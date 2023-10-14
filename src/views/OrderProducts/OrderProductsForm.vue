@@ -37,7 +37,7 @@ const getOrderProductData = (id) => {
         product_id: res.data.product_id
       }
     })
-    .catch(error => { processError(error) })
+    .catch(() => { showError(`Erro ao buscar produto da lista com ID ${id}`) })
 }
 
 const getProducts = () => {
@@ -75,8 +75,8 @@ const processError = error => {
 
 const createOrderProduct = () => {
   api.post(`api/v1/orders/${orderId.value}/order_products`, orderProduct.value)
-    .then(res => { processSuccess(res) })
-    .catch(error => { processError(error) })
+    .then(res => processSuccess(res))
+    .catch(error => processError(error))
 }
 
 const updateOrderProduct = () => {

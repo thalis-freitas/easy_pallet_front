@@ -32,7 +32,7 @@ const getProductData = id => {
         ballast: res.data.ballast
       }
     })
-    .catch(error => { processError(error) })
+    .catch(() => { showError(`Erro ao buscar produto com ID ${id}`) })
 }
 
 const isNewProduct = ref(!id.value)
@@ -62,8 +62,8 @@ const processError = error => {
 
 const createProduct = () => {
   api.post('api/v1/products', product.value)
-    .then(res => { processSuccess(res) })
-    .catch(error => { processError(error) })
+    .then(res => processSuccess(res))
+    .catch(error => processError(error))
 }
 
 const updateProduct = () => {
@@ -79,7 +79,7 @@ const saveProduct = () => isNewProduct.value ? createProduct() : updateProduct()
 <template>
   <BaseLayout>
     <template v-slot:title>
-      <h4>{{ isNewProduct ? 'Nova Produto' : 'Editar Produto' }}</h4>
+      <h4>{{ isNewProduct ? 'Novo Produto' : 'Editar Produto' }}</h4>
     </template>
 
     <div v-if="showForm">
@@ -103,7 +103,7 @@ const saveProduct = () => isNewProduct.value ? createProduct() : updateProduct()
     </div>
 
     <div v-else class="alert alert-danger text-center">
-      Nenhum produto encontrada com o ID {{ id }}
+      Nenhum produto encontrado com o ID {{ id }}
     </div>
   </BaseLayout>
 </template>

@@ -32,7 +32,7 @@ const getLoadData = id => {
         delivery_date: res.data.delivery_date
       }
     })
-    .catch(error => { processError(error) })
+    .catch(() => { showError(`Erro ao buscar carga com ID ${id}`) })
 }
 
 const isNewLoad = ref(!id.value)
@@ -43,7 +43,7 @@ const loadErrors = ref([])
 
 const processSuccess = res => {
   loadErrors.value = ''
-  router.push('/loads')
+  router.push('/')
   showSuccess(`Carga ${res.data.code} ${action} com sucesso`)
 }
 
@@ -62,8 +62,8 @@ const processError = error => {
 
 const createLoad = () => {
   api.post('api/v1/loads', load.value)
-    .then(res => { processSuccess(res) })
-    .catch(error => { processError(error) })
+    .then(res => processSuccess(res))
+    .catch(error => processError(error))
 }
 
 const updateLoad = () => {
