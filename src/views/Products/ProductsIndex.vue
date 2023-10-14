@@ -33,7 +33,7 @@ const deleteProduct = (id) => {
 }
 
 const processSuccess = (id) => {
-  showSuccessfullyRemoved('Produto removida com sucesso')
+  showSuccessfullyRemoved('Produto removido com sucesso')
   removeElement(items.value, id)
 }
 
