@@ -3,14 +3,13 @@ import api from '@/services/api'
 import BaseLayout from '../../layouts/BaseLayout.vue'
 import DataTable from '@/components/DataTable.vue'
 import PaginationControl from '@/components/PaginationControl.vue'
+import { removeElement } from '../../composables/tableUtils'
 import {
   showConfirmation,
   showSuccessfullyRemoved,
   showError
 } from '../../composables/useSweetAlert.js'
 import { usePagination } from '../../composables/usePagination'
-
-import 'sweetalert2/src/sweetalert2.scss'
 
 const {
   items,
@@ -35,11 +34,7 @@ const deleteLoad = (id) => {
 
 const processSuccess = (id) => {
   showSuccessfullyRemoved('Carga removida com sucesso')
-
-  const index = items.value.findIndex(item => item.id === id)
-  if (index !== -1) {
-    items.value.splice(index, 1)
-  }
+  removeElement(items.value, id)
 }
 
 </script>

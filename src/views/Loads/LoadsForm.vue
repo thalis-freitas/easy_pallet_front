@@ -82,7 +82,7 @@ const saveLoad = () => isNewLoad.value ? createLoad() : updateLoad()
     <div v-if="showForm">
       <div class="mb-3">
         <label for="code">Código</label>
-        <input type="text" v-model="load.code" class="form-control"/>
+        <input type="text" v-model="load.code" class="form-control" autofocus/>
         <p class="text-danger">{{ loadErrors.code }}</p>
       </div>
 
