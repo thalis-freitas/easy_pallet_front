@@ -19,7 +19,7 @@ defineProps({
 </script>
 
 <template>
-<div>
+<div v-if="items.length > 0">
   <table class="table table-bordered d-none d-md-table" v-if="isTableMode">
     <thead>
       <tr>
@@ -52,5 +52,8 @@ defineProps({
       </td>
     </div>
   </div>
+</div>
+<div v-else class="alert alert-danger text-center">
+  Nenhum item encontrado
 </div>
 </template>

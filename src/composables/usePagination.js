@@ -1,5 +1,6 @@
 import api from '@/services/api'
 import { ref, computed, onMounted } from 'vue'
+import { showError } from './useSweetAlert'
 
 export function usePagination(endpoint, itemName) {
   const items = ref([])
@@ -16,11 +17,12 @@ export function usePagination(endpoint, itemName) {
   })
 
   const getItems = (page) => {
-    api.get(`${endpoint}?page=${page}`).then((res) => {
+    api.get(`${endpoint}?page=${page}`).then(res => {
       items.value = res.data[itemName]
       pagination.value = res.data.meta
       paginationLoaded.value = true
     })
+    .catch(() => showError('Ocorreu um erro ao obter os dados da tabela'))
   }
 
   const changePage = (page) => {
