@@ -8,7 +8,7 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const loadId = ref(route.params.id)
+const loadId = ref(route.params.load_id)
 
 import 'sweetalert2/src/sweetalert2.scss'
 
@@ -27,7 +27,14 @@ const fields = { id: 'ID', code: 'Código', bay: 'Baia'}
 <template>
   <BaseLayout>
     <template v-slot:title>
-      <h4>Listas da carga com ID {{ loadId }}</h4>
+      <h4>Listas da carga com ID {{ loadId }}
+        <RouterLink
+          :to="`orders/create`"
+          class="btn btn-success float-end"
+        >
+            <span>Nova Lista</span>
+        </RouterLink>
+      </h4>
     </template>
 
     <DataTable
@@ -35,6 +42,14 @@ const fields = { id: 'ID', code: 'Código', bay: 'Baia'}
       :fields="fields"
       :actions="true"
     >
+      <template v-slot:actions="data">
+        <RouterLink
+          :to="`orders/${data.item.id}/edit`"
+          class="btn btn-primary me-md-2"
+        >
+          Editar
+        </RouterLink>
+      </template>
     </DataTable>
 
     <PaginationControl
