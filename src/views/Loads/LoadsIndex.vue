@@ -69,9 +69,15 @@ const processSuccess = (id) => {
         <button
           @click="deleteLoad(data.item.id)"
           type="button"
-          class="btn btn-secondary">
+          class="btn btn-outline-secondary me-md-2">
           Deletar
         </button>
+        <RouterLink
+          :to="`loads/${data.item.id}/orders`"
+          class="btn btn-primary"
+        >
+          Listas
+        </RouterLink>
       </template>
     </DataTable>
 
