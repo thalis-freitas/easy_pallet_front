@@ -65,7 +65,7 @@ const processSuccess = (id) => {
     >
       <template v-slot:actions="data">
         <RouterLink
-          :to="`orders/${data.item.id}/edit`"
+          :to="{ name: 'OrdersEdit', params: { id: data.item.id } }"
           class="btn btn-primary me-md-2"
         >
           Editar
@@ -76,6 +76,12 @@ const processSuccess = (id) => {
           class="btn btn-outline-secondary me-md-2">
           Deletar
         </button>
+        <RouterLink
+          :to="{ name: 'OrderProductsIndex', params: { order_id: data.item.id } }"
+          class="btn btn-primary"
+        >
+          Produtos da Lista
+        </RouterLink>
       </template>
     </DataTable>
 
