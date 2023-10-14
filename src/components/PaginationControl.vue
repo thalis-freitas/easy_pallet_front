@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
+import { isTableMode } from '../composables/tableUtils'
 
 const props = defineProps({
   pagination: {
@@ -30,12 +31,13 @@ watch(props.pagination, (newPagination) => {
 })
 
 const pagesToShow = computed(() => {
-  const maxPages = 7
+  const maxPages = isTableMode.value ? 8 : 5
   const totalPages = totalPage.value
 
   const start = Math.max(1, Math.min(
     currentPage.value - Math.floor(maxPages / 2), totalPages - maxPages + 1
   ))
+
   const end = Math.min(start + maxPages - 1, totalPages)
 
   return Array.from({ length: end - start + 1 }, (_, i) => start + i)
@@ -44,10 +46,11 @@ const pagesToShow = computed(() => {
 </script>
 
 <template>
-  <nav aria-label="Page navigation example">
+  <nav aria-label="Page navigation">
     <ul class="pagination">
       <li class="page-item" :class="{ disabled: currentPage === 1 }">
         <a
+          role="button"
           class="page-link"
           @click="changePage(currentPage - 1)"
           aria-label="Previous"
@@ -56,6 +59,7 @@ const pagesToShow = computed(() => {
         </a>
       </li>
       <li
+        role="button"
         class="page-item"
         v-for="page in pagesToShow"
         :key="page"
@@ -65,6 +69,7 @@ const pagesToShow = computed(() => {
       </li>
       <li class="page-item" :class="{ disabled: currentPage === totalPage }">
         <a
+          role="button"
           class="page-link"
           @click="changePage(currentPage + 1)"
           aria-label="Next"
