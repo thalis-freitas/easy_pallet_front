@@ -26,3 +26,27 @@ export function showError(title) {
     title: title
   })
 }
+
+export function showConfirmation(text, action) {
+  Swal.fire({
+    title: 'Tem certeza?',
+    text: text,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, excluir!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      action()
+    }
+  })
+}
+
+export function showSuccessfullyRemoved (text) {
+  Swal.fire(
+    'Removido!',
+    text,
+    'success'
+  )
+}
