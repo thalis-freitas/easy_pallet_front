@@ -48,12 +48,15 @@ const processSuccess = res => {
 }
 
 const processError = error => {
-  if(error.response.status == 422) {
-    loadErrors.value = error.response.data.errors
-    showError(`Carga não ${action}, verifique os erros e tente novamente`)
-
-  } else if(error.response.status == 404) {
-    showForm.value = false
+  try {
+    if(error.response.status && error.response.status == 422) {
+      loadErrors.value = error.response.data.errors
+      showError(`Carga não ${action}, verifique os erros e tente novamente`)
+    } else if(error.response.status == 404) {
+      showForm.value = false
+    } 
+  } catch {
+    showError(`Carga não ${action}, erro desconhecido`)
   }
 }
 
