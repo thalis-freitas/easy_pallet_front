@@ -1,7 +1,14 @@
 <script setup>
+import api from '@/services/api'
 import BaseLayout from '../../layouts/BaseLayout.vue'
 import DataTable from '@/components/DataTable.vue'
 import PaginationControl from '@/components/PaginationControl.vue'
+import { removeElement } from '../../composables/tableUtils'
+import {
+  showConfirmation,
+  showSuccessfullyRemoved,
+  showError
+} from '../../composables/useSweetAlert.js'
 import { usePagination } from '../../composables/usePagination'
 
 const {
@@ -13,6 +20,22 @@ const {
 } = usePagination('/api/v1/products', 'products')
 
 const fields = { id: 'ID', name: 'Nome', ballast: 'Lastro' }
+
+const deleteProduct = (id) => {
+  showConfirmation(
+    `Deseja excluir o produto com ID ${id}? Esta ação é irreversível!`,
+    () => {
+      api.delete(`api/v1/products/${id}`)
+        .then(() => processSuccess(id))
+        .catch(() => showError('Erro ao remover o produto, tente novamente'))
+    }
+  )
+}
+
+const processSuccess = (id) => {
+  showSuccessfullyRemoved('Produto removida com sucesso')
+  removeElement(items.value, id)
+}
 
 </script>
 
@@ -38,6 +61,12 @@ const fields = { id: 'ID', name: 'Nome', ballast: 'Lastro' }
         >
           Editar
         </RouterLink>
+        <button
+          @click="deleteProduct(data.item.id)"
+          type="button"
+          class="btn btn-outline-secondary me-md-2">
+          Deletar
+        </button>
       </template>
     </DataTable>
 

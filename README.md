@@ -35,7 +35,7 @@ Este projeto possibilita gerenciar informações relacionadas a cargas, listas, 
 - [x] Tabela e paginação com as informações
 - [x] Botão de criação de um novo produto
 - [x] Botão que permita a edição dos atributos do produto
-- [ ] Botão de exclusão do produto
+- [x] Botão de exclusão do produto
 
 ### Usuários (users)
 - [ ] Tabela e paginação com as informações
