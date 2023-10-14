@@ -1,35 +1,72 @@
-# easy_pallet_front
+# Easy Pallet Front
 
-This template should help get you started developing with Vue 3 in Vite.
+Este projeto possibilita gerenciar informações relacionadas a cargas, listas, produtos e usuários.
 
-## Recommended IDE Setup
+## Sumário
+  * [Funcionalidades](#funcionalidades)
+  * [Passo a passo para rodar o projeto](#passo-a-passo-para-rodar-o-projeto)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Funcionalidades
 
-## Customize configuration
+### Autenticação (login)
+- [ ] Tela de login
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### Cargas (loads)
+- [x] Tabela e paginação com as informações
+- [x] Botão de criação de uma nova carga
+- [x] Botão que permita a edição dos atributos da carga
+- [x] Botão de exclusão da carga
+- [x] Botão/clique que liste as listas dessa carga (redireciona para a tela de listas)
 
-## Project Setup
+### Listas (orders)
+- [x] Tabela e paginação com as informações
+- [x] Botão de criação de uma nova lista
+- [x] Botão que permita a edição dos atributos da lista
+- [x] Botão de exclusão da lista
+- [x] Botão/clique que liste os produtos desta lista (order_products)
 
-```sh
-npm install
+### Produtos das Listas (order_products)
+- [x] Tabela com as informações (sem paginação)
+- [x] Botão de criação de um novo produto da lista
+- [x] Botão que permita a edição dos atributos de um produto da lista
+- [x] Botão de exclusão de um produto da lista
+
+### Produtos (products)
+- [ ] Tabela e paginação com as informações
+- [ ] Botão que permita a edição dos atributos do produto
+- [ ] Botão de exclusão do produto
+- [ ] Botão de criação de um novo produto
+
+### Usuários (users)
+- [ ] Tabela e paginação com as informações
+- [ ] Botão que permita a edição dos atributos do usuário
+- [ ] Botão de exclusão do usuário
+- [ ] Botão de criação de um novo usuário
+
+## Passo a passo para rodar o projeto
+
+1. Clone o projeto:
+
+```
+ git clone git@github.com:thalis-freitas/easy_pallet_front.git
 ```
 
-### Compile and Hot-Reload for Development
+2. Entre na pasta do projeto:
 
-```sh
-npm run dev
+```
+ cd easy_pallet_front/
 ```
 
-### Compile and Minify for Production
+3. Instale as dependências:
 
-```sh
-npm run build
+```
+ npm install
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+5. Suba o servidor:
 
-```sh
-npm run lint
 ```
+ npm run dev
+```
+
+6. Acesse http://localhost:5173/
