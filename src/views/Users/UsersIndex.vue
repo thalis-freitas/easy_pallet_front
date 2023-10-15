@@ -1,6 +1,7 @@
 <script setup>
 import api from '@/services/api'
 import BaseLayout from '../../layouts/BaseLayout.vue'
+import CircleLoading from '../../components/CircleLoading.vue'
 import DataTable from '@/components/DataTable.vue'
 import PaginationControl from '@/components/PaginationControl.vue'
 import { ref } from 'vue'
@@ -9,7 +10,7 @@ import {
   showConfirmation,
   showSuccessfullyRemoved,
   showError,
-showSuccess
+  showSuccess
 } from '../../composables/useSweetAlert.js'
 import { usePagination } from '../../composables/usePagination'
 
@@ -96,9 +97,7 @@ const importUsers = async (formData) => {
       <button @click="processFile" class="btn btn-outline-success me-2">
         Enviar
       </button>
-      <div v-if="loading" class="spinner-border text-success" role="status">
-        <span class="sr-only mb-3"></span>
-      </div>
+      <CircleLoading v-if="loading"/>
     </div>
 
     <DataTable
