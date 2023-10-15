@@ -9,7 +9,8 @@ Este projeto possibilita gerenciar informações relacionadas a cargas, listas, 
 ## Funcionalidades
 
 ### Autenticação (login)
-- [ ] Tela de login
+- [x] Tela de login
+- [x] Botão de logout
 
 ### Cargas (loads)
 - [x] Tabela e paginação com as informações
@@ -42,6 +43,12 @@ Este projeto possibilita gerenciar informações relacionadas a cargas, listas, 
 - [x] Botão de criação de um novo usuário
 - [x] Botão que permita a edição dos atributos do usuário
 - [x] Botão de exclusão do usuário
+
+### Importação de Dados
+
+- [ ] Importação de dados de planilhas de cargas
+- [ ] Importação de dados de planilhas de produtos
+- [ ] Importação de dados de planilhas de usuários
 
 ## Passo a passo para rodar o projeto
 
