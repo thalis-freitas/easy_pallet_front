@@ -2,7 +2,7 @@
 import api from '@/services/api'
 import GuestLayout from '../../layouts/GuestLayout.vue'
 import { ref } from 'vue'
-import { showSuccess } from '../../composables/useSweetAlert.js'
+import { showError, showSuccess } from '../../composables/useSweetAlert.js'
 import { useRouter } from 'vue-router'
 
 const user = ref({
@@ -19,7 +19,8 @@ const login = async user => {
     const res = await api.post('/api/v1/login', { user })
     processSuccess(res)
   } catch (error) {
-    loginError.value = error.res.data.errors
+    loginError.value = error.response.data.errors
+    showError('Ops! Ocorreu um erro.')
   }
 }
 
