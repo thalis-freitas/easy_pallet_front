@@ -56,7 +56,7 @@ const processError = error => {
       showForm.value = false
     } 
   } catch {
-    showError(`Carga não ${action}, erro desconhecido`)
+    showError(`Carga não ${action}, erro inesperado`)
   }
 }
 
@@ -82,7 +82,7 @@ const saveLoad = () => isNewLoad.value ? createLoad() : updateLoad()
       <h4>{{ isNewLoad ? 'Nova Carga' : 'Editar Carga' }}</h4>
     </template>
 
-    <div v-if="showForm">
+    <form v-if="showForm" @submit.prevent="saveLoad">
       <div class="mb-3">
         <label for="code">Código</label>
         <input type="text" v-model="load.code" class="form-control" autofocus/>
@@ -96,11 +96,11 @@ const saveLoad = () => isNewLoad.value ? createLoad() : updateLoad()
       </div>
 
       <div class="mb-3">
-        <button @click="saveLoad" type="button" class="btn btn-success">
+        <button type="submit" class="btn btn-success">
           {{ isNewLoad ? 'Salvar' : 'Atualizar' }}
         </button>
       </div>
-    </div>
+    </form>
 
     <div v-else class="alert alert-danger text-center">
       Nenhuma carga encontrada com o ID {{ id }}

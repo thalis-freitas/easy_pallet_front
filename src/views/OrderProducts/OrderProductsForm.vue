@@ -69,7 +69,7 @@ const processError = error => {
       showForm.value = false
     }
   } catch {
-    showError(`Produto da lista não ${action}, erro desconhecido`)
+    showError(`Produto da lista não ${action}, erro inesperado`)
   }
 }
 
@@ -99,10 +99,15 @@ const saveOrderProduct = () => {
       </h4>
     </template>
 
-    <div v-if="showForm">
+    <form v-if="showForm" @submit.prevent="saveOrderProduct">
       <div class="mb-3">
         <label for="quantity">Quantidade</label>
-        <input type="text" v-model="orderProduct.quantity" class="form-control" />
+        <input
+          type="text"
+          v-model="orderProduct.quantity"
+          class="form-control"
+          autofocus
+        />
         <p class="text-danger">{{ orderProductErrors.quantity }}</p>
       </div>
 
@@ -125,11 +130,11 @@ const saveOrderProduct = () => {
       </div>
 
       <div class="mb-3">
-        <button @click="saveOrderProduct" type="button" class="btn btn-success">
+        <button type="submit" class="btn btn-success">
           {{ isNewOrderProduct ? 'Salvar' : 'Atualizar' }}
         </button>
       </div>
-    </div>
+    </form>
 
     <div v-else class="alert alert-danger text-center">
       Nenhum Produto da Lista encontrado com o ID {{ id }}

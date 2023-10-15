@@ -2,9 +2,11 @@
 
 Este projeto possibilita gerenciar informações relacionadas a cargas, listas, produtos e usuários.
 
+Link de acesso: https://easy-pallet-front.vercel.app/
+
 ## Sumário
   * [Funcionalidades](#funcionalidades)
-  * [Passo a passo para rodar o projeto](#passo-a-passo-para-rodar-o-projeto)
+  * [Passo a passo para rodar o projeto localmente](#passo-a-passo-para-rodar-o-projeto-localmente)
 
 ## Funcionalidades
 
@@ -50,7 +52,7 @@ Este projeto possibilita gerenciar informações relacionadas a cargas, listas, 
 - [ ] Importação de dados de planilhas de produtos
 - [ ] Importação de dados de planilhas de usuários
 
-## Passo a passo para rodar o projeto
+## Passo a passo para rodar o projeto localmente
 
 1. Clone o projeto:
 

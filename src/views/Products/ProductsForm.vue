@@ -56,7 +56,7 @@ const processError = error => {
       showForm.value = false
     } 
   } catch {
-    showError(`Produto não ${action}, erro desconhecido`)
+    showError(`Produto não ${action}, erro inesperado`)
   }
 }
 
@@ -82,7 +82,7 @@ const saveProduct = () => isNewProduct.value ? createProduct() : updateProduct()
       <h4>{{ isNewProduct ? 'Novo Produto' : 'Editar Produto' }}</h4>
     </template>
 
-    <div v-if="showForm">
+    <form v-if="showForm" @submit.prevent="saveProduct">
       <div class="mb-3">
         <label for="name">Nome</label>
         <input type="text" v-model="product.name" class="form-control" autofocus/>
@@ -96,11 +96,11 @@ const saveProduct = () => isNewProduct.value ? createProduct() : updateProduct()
       </div>
 
       <div class="mb-3">
-        <button @click="saveProduct" type="button" class="btn btn-success">
+        <button type="submit" class="btn btn-success">
           {{ isNewProduct ? 'Salvar' : 'Atualizar' }}
         </button>
       </div>
-    </div>
+    </form>
 
     <div v-else class="alert alert-danger text-center">
       Nenhum produto encontrado com o ID {{ id }}

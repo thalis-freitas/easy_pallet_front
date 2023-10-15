@@ -22,7 +22,7 @@ export function usePagination(endpoint, itemName) {
       pagination.value = res.data.meta
       paginationLoaded.value = true
     })
-    .catch(() => showError('Ocorreu um erro ao obter os dados da tabela'))
+    .catch(() => showError('Ocorreu um erro ao obter os dados'))
   }
 
   const changePage = (page) => {
