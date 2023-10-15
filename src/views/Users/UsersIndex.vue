@@ -4,14 +4,17 @@ import BaseLayout from '../../layouts/BaseLayout.vue'
 import CircleLoading from '../../components/CircleLoading.vue'
 import DataTable from '@/components/DataTable.vue'
 import PaginationControl from '@/components/PaginationControl.vue'
+import { processFile } from '../../composables/importUtils'
 import { ref } from 'vue'
 import { removeElement } from '../../composables/tableUtils'
+
 import {
   showConfirmation,
   showSuccessfullyRemoved,
   showError,
   showSuccess
 } from '../../composables/useSweetAlert.js'
+
 import { usePagination } from '../../composables/usePagination'
 
 const {
@@ -43,21 +46,11 @@ const processSuccess = (id) => {
   removeElement(items.value, id)
 }
 
-const fileInput = ref(null);
+const fileInput = ref(null)
 
-const processFile = () => {
+const processImport = () => {
   loading.value = true
-
-  const file = fileInput.value.files[0];
-
-  if (file) {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    importUsers(formData)
-  } else {
-    showError('Nenhum arquivo selecionado')
-  }
+  processFile(fileInput.value.files[0], importUsers)
 }
 
 const importUsers = async (formData) => {
@@ -94,7 +87,7 @@ const importUsers = async (formData) => {
         <label for="formFile" class="form-label me-2">Importar usuários</label>
         <input class="form-control" type="file" id="formFile" ref="fileInput">
       </div>
-      <button @click="processFile" class="btn btn-outline-success me-2">
+      <button @click="processImport" class="btn btn-outline-success me-2">
         Enviar
       </button>
       <CircleLoading v-if="loading"/>
