@@ -3,11 +3,13 @@ import api from '@/services/api'
 import BaseLayout from '../../layouts/BaseLayout.vue'
 import DataTable from '@/components/DataTable.vue'
 import PaginationControl from '@/components/PaginationControl.vue'
+import { ref } from 'vue'
 import { removeElement } from '../../composables/tableUtils'
 import {
   showConfirmation,
   showSuccessfullyRemoved,
-  showError
+  showError,
+showSuccess
 } from '../../composables/useSweetAlert.js'
 import { usePagination } from '../../composables/usePagination'
 
@@ -16,8 +18,11 @@ const {
   pagination,
   paginationLoaded,
   totalPage,
-  changePage
+  changePage,
+  getItems
 } = usePagination('/api/v1/users', 'users')
+
+const loading = ref(false)
 
 const fields = { id: 'ID', name: 'Nome', login: 'Login' }
 
@@ -37,6 +42,40 @@ const processSuccess = (id) => {
   removeElement(items.value, id)
 }
 
+const fileInput = ref(null);
+
+const processFile = () => {
+  loading.value = true
+
+  const file = fileInput.value.files[0];
+
+  if (file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    importUsers(formData)
+  } else {
+    showError('Nenhum arquivo selecionado')
+  }
+}
+
+const importUsers = async (formData) => {
+  try {
+    const response = await api.post('/api/v1/import/users', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+
+    if (response && response.status === 201) {
+      showSuccess('Usuários importados com sucesso')
+      getItems(1)
+    }
+  } catch (error) {
+    showError('Ocorreu um erro inesperado! Por favor verifique os dados da planilha e tente novamente')
+  }
+
+  loading.value = false
+}
+
 </script>
 
 <template>
@@ -48,6 +87,19 @@ const processSuccess = (id) => {
         </RouterLink>
       </h4>
     </template>
+
+    <div class="d-flex align-items-end mb-4">
+      <div class="fs-6 me-2">
+        <label for="formFile" class="form-label me-2">Importar usuários</label>
+        <input class="form-control" type="file" id="formFile" ref="fileInput">
+      </div>
+      <button @click="processFile" class="btn btn-outline-success me-2">
+        Enviar
+      </button>
+      <div v-if="loading" class="spinner-border text-success" role="status">
+        <span class="sr-only mb-3"></span>
+      </div>
+    </div>
 
     <DataTable
       :items="items"

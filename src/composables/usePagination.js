@@ -39,5 +39,6 @@ export function usePagination(endpoint, itemName) {
     paginationLoaded,
     totalPage,
     changePage,
+    getItems,
   }
 }
