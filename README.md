@@ -10,7 +10,7 @@ Este projeto possibilita gerenciar informações relacionadas a cargas, listas, 
 
 ### Autenticação (login)
 - [x] Tela de login
-- [ ] Botão de logout
+- [x] Botão de logout
 
 ### Cargas (loads)
 - [x] Tabela e paginação com as informações
