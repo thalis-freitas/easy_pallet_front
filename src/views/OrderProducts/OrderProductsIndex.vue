@@ -24,7 +24,7 @@ const getOrderProducts = () => {
     .then(res => {
       orderProducts.value = res.data
     })
-    .catch(() => showError('Ocorreu um erro ao obter os dados da tabela'))
+    .catch(() => showError('Ocorreu um erro ao obter os dados'))
 }
 
 const fields = { id: 'ID', product_id: 'ID do Produto', quantity: 'Quantidade'}
