@@ -53,7 +53,7 @@ defineProps({
     </div>
   </div>
 </div>
-<div v-else class="alert alert-danger text-center">
+<div v-else class="alert alert-warn text-center">
   Nenhum item encontrado
 </div>
 </template>

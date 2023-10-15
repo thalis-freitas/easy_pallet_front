@@ -57,7 +57,7 @@ const processError = error => {
       showForm.value = false
     } 
   } catch {
-    showError(`Usuário não ${action}, erro desconhecido`)
+    showError(`Usuário não ${action}, erro inesperado`)
   }
 }
 
@@ -65,7 +65,7 @@ const createUser = () => {
   api.post('api/v1/users', user.value)
     .then(res => {
       processSuccess()
-      showSuccess(`Usuário ${res.data.user.name} ${action} com sucesso`)
+      showSuccess(`Usuário ${res.data.user.login} ${action} com sucesso`)
     })
     .catch(error => processError(error))
 }
@@ -89,7 +89,7 @@ const saveUser = () => isNewUser.value ? createUser() : updateUser()
       <h4>{{ isNewUser ? 'Novo Usuário' : 'Editar Usuário' }}</h4>
     </template>
 
-    <div v-if="showForm">
+    <form v-if="showForm" @submit.prevent="saveUser">
       <div class="mb-3">
         <label for="name">Nome</label>
         <input type="text" v-model="user.name" class="form-control" autofocus/>
@@ -109,11 +109,11 @@ const saveUser = () => isNewUser.value ? createUser() : updateUser()
       </div>
 
       <div class="mb-3">
-        <button @click="saveUser" type="button" class="btn btn-success">
+        <button type="submit" class="btn btn-success">
           {{ isNewUser ? 'Salvar' : 'Atualizar' }}
         </button>
       </div>
-    </div>
+    </form>
 
     <div v-else class="alert alert-danger text-center">
       Nenhum usuário encontrado com o ID {{ id }}
