@@ -1,3 +1,10 @@
+<script setup>
+import { ref } from 'vue'
+
+const user = ref(JSON.parse(localStorage.getItem('user')))
+
+</script>
+
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -15,8 +22,7 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
+        <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
             <RouterLink class="nav-link" to="/">Cargas</RouterLink>
           </li>
@@ -29,6 +35,11 @@
             <RouterLink class="nav-link" to="/users">Usuários</RouterLink>
           </li>
 
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link disabled">{{ user.login }}</a>
+          </li>
         </ul>
       </div>
 

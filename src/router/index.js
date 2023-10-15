@@ -9,6 +9,7 @@ import ProductsIndex from '../views/Products/ProductsIndex.vue'
 import ProductsForm from '../views/Products/ProductsForm.vue'
 import UsersIndex from '../views/Users/UsersIndex.vue'
 import UsersForm from '../views/Users/UsersForm.vue'
+import LoginForm from '../views/Auth/LoginForm.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -87,8 +88,19 @@ const router = createRouter({
       path: '/users/:id/edit',
       name: 'UsersEdit',
       component: UsersForm
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: LoginForm
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token')
+  if (to.name !== 'Login' && !token) next({ name: 'Login' })
+  else next()
 })
 
 export default router
