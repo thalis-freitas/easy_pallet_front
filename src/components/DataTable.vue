@@ -1,5 +1,6 @@
 <script setup>
 import { isTableMode } from '../composables/tableUtils'
+import AlertWarning from './AlertWarning.vue';
 
 defineProps({
   items: {
@@ -53,7 +54,5 @@ defineProps({
     </div>
   </div>
 </div>
-<div v-else class="alert alert-warn text-center">
-  Nenhum item encontrado
-</div>
+<AlertWarning v-else message="Nenhum item encontrado" />
 </template>

@@ -19,8 +19,8 @@ const login = async user => {
     const res = await api.post('/api/v1/login', { user })
     processSuccess(res)
   } catch (error) {
-    loginError.value = error.response.data.errors
-    showError('Ops! Ocorreu um erro.')
+    try { loginError.value = error.response.data.errors }
+    catch { showError('Ocorreu um erro inesperado.') }
   }
 }
 

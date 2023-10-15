@@ -1,4 +1,5 @@
 <script setup>
+import AlertWarning from '../../components/AlertWarning.vue'
 import api from '@/services/api'
 import BaseLayout from '../../layouts/BaseLayout.vue'
 import { onMounted, ref } from 'vue'
@@ -102,8 +103,6 @@ const saveProduct = () => isNewProduct.value ? createProduct() : updateProduct()
       </div>
     </form>
 
-    <div v-else class="alert alert-danger text-center">
-      Nenhum produto encontrado com o ID {{ id }}
-    </div>
+    <AlertWarning v-else :message="`Nenhum produto encontrado com o ID ${id}`" />
   </BaseLayout>
 </template>

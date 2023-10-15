@@ -1,4 +1,5 @@
 <script setup>
+import AlertWarning from '../../components/AlertWarning.vue'
 import api from '@/services/api'
 import BaseLayout from '../../layouts/BaseLayout.vue'
 import { onMounted, ref } from 'vue'
@@ -103,8 +104,6 @@ const saveOrder = () => isNewOrder.value ? createOrder() : updateOrder()
       </div>
     </form>
 
-    <div v-else class="alert alert-danger text-center">
-      Nenhuma Lista encontrada com o ID {{ id }}
-    </div>
+    <AlertWarning v-else :message="`Nenhuma Lista encontrada com o ID ${id}`" />
   </BaseLayout>
 </template>

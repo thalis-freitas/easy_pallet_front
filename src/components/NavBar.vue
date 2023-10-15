@@ -22,7 +22,7 @@ const logout = () => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg">
     <div class="container">
       <RouterLink class="navbar-brand" to="/">Easy Pallet</RouterLink>
       <button
