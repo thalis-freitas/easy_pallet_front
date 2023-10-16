@@ -1,14 +1,20 @@
 <script setup>
 import api from '@/services/api'
 import BaseLayout from '../../layouts/BaseLayout.vue'
+import CircleLoading from '../../components/CircleLoading.vue'
 import DataTable from '@/components/DataTable.vue'
 import PaginationControl from '@/components/PaginationControl.vue'
+import { processFile } from '../../composables/importUtils'
+import { ref } from 'vue'
 import { removeElement } from '../../composables/tableUtils'
+
 import {
   showConfirmation,
   showSuccessfullyRemoved,
-  showError
+  showError,
+  showSuccess
 } from '../../composables/useSweetAlert.js'
+
 import { usePagination } from '../../composables/usePagination'
 
 const {
@@ -16,8 +22,11 @@ const {
   pagination,
   paginationLoaded,
   totalPage,
-  changePage
+  changePage,
+  getItems
 } = usePagination('/api/v1/users', 'users')
+
+const loading = ref(false)
 
 const fields = { id: 'ID', name: 'Nome', login: 'Login' }
 
@@ -37,6 +46,30 @@ const processSuccess = (id) => {
   removeElement(items.value, id)
 }
 
+const fileInput = ref(null)
+
+const processImport = () => {
+  loading.value = true
+  processFile(fileInput.value.files[0], importUsers)
+}
+
+const importUsers = async (formData) => {
+  try {
+    const response = await api.post('/api/v1/import/users', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+
+    if (response && response.status === 201) {
+      showSuccess('Usuários importados com sucesso')
+      getItems(1)
+    }
+  } catch (error) {
+    showError('Ocorreu um erro inesperado! ')
+  }
+
+  loading.value = false
+}
+
 </script>
 
 <template>
@@ -48,6 +81,17 @@ const processSuccess = (id) => {
         </RouterLink>
       </h4>
     </template>
+
+    <div class="d-flex align-items-end mb-4">
+      <div class="fs-6 me-2">
+        <label for="formFile" class="form-label me-2">Importar usuários</label>
+        <input class="form-control" type="file" id="formFile" ref="fileInput">
+      </div>
+      <button @click="processImport" class="btn btn-outline-success me-2">
+        Enviar
+      </button>
+      <CircleLoading v-if="loading"/>
+    </div>
 
     <DataTable
       :items="items"

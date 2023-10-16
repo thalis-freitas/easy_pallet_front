@@ -1,6 +1,6 @@
 <script setup>
 import { isTableMode } from '../composables/tableUtils'
-import AlertWarning from './AlertWarning.vue';
+import AlertWarning from './AlertWarning.vue'
 
 defineProps({
   items: {
