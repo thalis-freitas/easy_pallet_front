@@ -48,7 +48,7 @@ Link de acesso: https://easy-pallet-front.vercel.app/
 
 ### Importação de Dados
 
-- [ ] Importação de dados de planilhas de cargas
+- [x] Importação de dados de planilhas de cargas
 - [x] Importação de dados de planilhas de produtos
 - [x] Importação de dados de planilhas de usuários
 

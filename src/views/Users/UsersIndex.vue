@@ -64,7 +64,7 @@ const importUsers = async (formData) => {
       getItems(1)
     }
   } catch (error) {
-    showError('Ocorreu um erro inesperado! Por favor verifique os dados da planilha e tente novamente')
+    showError('Ocorreu um erro inesperado! ')
   }
 
   loading.value = false
